@@ -27,7 +27,6 @@ public class OrderV1 {
         return order.getCustomerLastName();
     }
 
-
     public long getOrderTotal() {
         return order.getOrderTotal().multiply(HUNDRED).longValue();
     }

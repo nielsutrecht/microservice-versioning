@@ -41,11 +41,7 @@ public class Controller {
      * Constructor. Creates a order 'database' (list with a single Order) and configures the view and adapter maps.
      */
     public Controller() {
-        Order order;
-
-        order = new Order(1, "John", "Williams", currentTimeMillis(), new Order.Item("Milk", 4, "2.99"), new Order.Item("Bread", 2, "3.45"));
-
-        orderDb.add(order);
+        orderDb.add(new Order(1, "John", "Williams", currentTimeMillis(), new Order.Item("Milk", 4, "2.99"), new Order.Item("Bread", 2, "3.45")));
 
         viewMap.put(1, View.Version1.class);
         adapterMap.put(1, o -> new MappingJacksonValue(new OrderV1(o)));
@@ -58,9 +54,8 @@ public class Controller {
      */
     @RequestMapping(value = "/method1/{id}", method = RequestMethod.GET)
     public MappingJacksonValue getMethod1(@PathVariable int id) {
-        final MappingJacksonValue result = new MappingJacksonValue(find(id));
-        final Class<?> view = getOrderView();
-        result.setSerializationView(view);
+        MappingJacksonValue result = new MappingJacksonValue(find(id));
+        result.setSerializationView(getOrderView());
 
         return result;
     }
